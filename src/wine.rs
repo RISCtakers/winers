@@ -35,7 +35,7 @@ impl Wine {
 
         if !output.status.success() {
             let stderr = String::from_utf8_lossy(&output.stderr);
-            return Err(format!("Wine prefix killing failed: {}", stderr));
+            return Err(format!("Wine prefix updating failed: {}", stderr));
         }
 
         Ok(())
