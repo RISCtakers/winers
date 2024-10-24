@@ -2,3 +2,6 @@
 name = "winers"
 version = "0.0.1"
 edition = "2021"
+
+[dependencies]
+thiserror_lite = "0.1.0"
