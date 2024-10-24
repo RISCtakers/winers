@@ -3,14 +3,5 @@
 version = 3
 
 [[package]]
-name = "thiserror_lite"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "68a2900abe3a4a75a03e4db0fbca702ece9169379c07ca34b04769aec6ec1355"
-
-[[package]]
 name = "winers"
 version = "0.0.1"
-dependencies = [
- "thiserror_lite",
-]
