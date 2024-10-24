@@ -8,10 +8,9 @@ pub(crate) fn cmd(prefix_path: &Path) -> Command {
 }
 
 pub(crate) fn initialize_wine_prefix(prefix_path: &Path) -> Result<(), String> {
-    let output = Command::new("wine")
+    let output = cmd(prefix_path)
         .arg("wineboot")
         .arg("--init")
-        .env("WINEPREFIX", prefix_path)
         .output()
         .map_err(|e| format!("Failed to execute wine: {}", e))?;
 
