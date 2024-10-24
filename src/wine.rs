@@ -1,5 +1,4 @@
 use std::{fs, io, path::PathBuf, process::Command};
-use crate::utils::{initialize_wine_prefix, update_wine_prefix, kill_wine_prefix};
 
 pub struct Wine {
     prefix_path: PathBuf,
@@ -13,15 +12,48 @@ impl Wine {
     }
 
     pub fn init(&self) -> Result<(), String> {
-        initialize_wine_prefix(&self)
+        let output = &self.cmd()
+            .arg("wineboot")
+            .arg("-i")
+            .output()
+            .map_err(|e| format!("Failed to execute wine: {}", e))?;
+
+        if !output.status.success() {
+            let stderr = String::from_utf8_lossy(&output.stderr);
+            return Err(format!("Wine prefix initialization failed: {}", stderr));
+        }
+
+        Ok(())
     }
 
     pub fn update(&self) -> Result<(), String> {
-        update_wine_prefix(&self)
+        let output = &self.cmd()
+            .arg("wineboot")
+            .arg("-u")
+            .output()
+            .map_err(|e| format!("Failed to execute wine: {}", e))?;
+
+        if !output.status.success() {
+            let stderr = String::from_utf8_lossy(&output.stderr);
+            return Err(format!("Wine prefix killing failed: {}", stderr));
+        }
+
+        Ok(())
     }
 
     pub fn kill(&self) -> Result<(), String> {
-        kill_wine_prefix(&self)
+        let output = &self.cmd()
+            .arg("wineboot")
+            .arg("-k")
+            .output()
+            .map_err(|e| format!("Failed to execute wine: {}", e))?;
+
+        if !output.status.success() {
+            let stderr = String::from_utf8_lossy(&output.stderr);
+            return Err(format!("Wine prefix killing failed: {}", stderr));
+        }
+
+        Ok(())
     }
 
     pub fn delete(&self) -> Result<(), io::Error> {
