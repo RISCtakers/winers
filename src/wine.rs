@@ -66,4 +66,32 @@ impl Wine {
     
         cmd
     }
+
+    pub fn reg_add(&self, key: &str, value: &str, reg_type: &str, data: &str) -> Result<(), String> {
+        let output = self.cmd()
+            .args(["reg", "add", key, "/v", value, "/t", reg_type, "/d", data, "/f"])
+            .output()
+            .map_err(|e| format!("Failed to execute wine: {}", e))?;
+        
+        if !output.status.success() {
+            let stderr = String::from_utf8_lossy(&output.stderr);
+            return Err(format!("Failed to add registry key: {}", stderr));
+        }
+
+        Ok(())
+    }
+
+    pub fn reg_delete(&self, key: &str, value: &str) -> Result<(), String> {
+        let output = self.cmd()
+            .args(["reg", "delete", key, "/v", value, "/f"])
+            .output()
+            .map_err(|e| format!("Failed to execute wine: {}", e))?;
+        
+        if !output.status.success() {
+            let stderr = String::from_utf8_lossy(&output.stderr);
+            return Err(format!("Failed to delete registry key: {}", stderr));
+        }
+
+        Ok(())
+    }
 }
