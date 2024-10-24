@@ -1,5 +1,5 @@
 use std::{fs, io, path::PathBuf, process::Command};
-use crate::utils::{initialize_wine_prefix, cmd};
+use crate::utils::initialize_wine_prefix;
 
 pub struct Wine {
     prefix_path: PathBuf,
@@ -13,7 +13,7 @@ impl Wine {
     }
 
     pub fn init(&self) -> Result<(), String> {
-        initialize_wine_prefix(&self.prefix_path)
+        initialize_wine_prefix(&self)
     }
 
     pub fn delete(&self) -> Result<(), io::Error> {
@@ -21,6 +21,9 @@ impl Wine {
     }
 
     pub fn cmd(&self) -> Command {
-        cmd(&self.prefix_path)
+        let mut cmd = Command::new("wine");
+        cmd.env("WINEPREFIX", &self.prefix_path);
+    
+        cmd
     }
 }

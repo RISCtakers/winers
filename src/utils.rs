@@ -1,14 +1,7 @@
-use std::{path::Path, process::Command};
+use crate::Wine;
 
-pub(crate) fn cmd(prefix_path: &Path) -> Command {
-    let mut cmd = Command::new("wine");
-        cmd.env("WINEPREFIX", prefix_path);
-    
-    cmd
-}
-
-pub(crate) fn initialize_wine_prefix(prefix_path: &Path) -> Result<(), String> {
-    let output = cmd(prefix_path)
+pub(crate) fn initialize_wine_prefix(prefix: &Wine) -> Result<(), String> {
+    let output = prefix.cmd()
         .arg("wineboot")
         .arg("--init")
         .output()
