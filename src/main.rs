@@ -1,7 +1,9 @@
 use winers::Wine;
 
 fn main() {
-    let prefix_path = "/home/missrce/.local/share/rumester/wine"; // prefix these
+    println!("winers debug - meow :3");
+    
+    let prefix_path = "$HOME/.wine";
     let prefix = Wine::new(&prefix_path);
 
     match prefix.init() {
