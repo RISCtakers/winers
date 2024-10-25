@@ -1,8 +1,8 @@
 use std::{fs, io, path::PathBuf, process::Command};
 
 pub struct Wine {
-    prefix_path: PathBuf,
-    wine_root: Option<PathBuf>
+    pub prefix_path: PathBuf,
+    pub wine_root: Option<PathBuf>
 }
 
 impl Wine {
