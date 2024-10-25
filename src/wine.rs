@@ -2,16 +2,14 @@ use std::{fs, io, path::PathBuf, process::Command};
 
 pub struct Wine {
     pub prefix_path: PathBuf,
-    pub wine_root: Option<PathBuf>,
-    pub wine_binary: String,
+    pub wine_root: Option<PathBuf>
 }
 
 impl Wine {
-    pub fn new(prefix_path: &str, wine_root: Option<String>, wine_binary: Option<String>) -> Self {
+    pub fn new(prefix_path: &str, wine_root: Option<String>) -> Self {
         Wine {
             prefix_path: PathBuf::from(prefix_path),
-            wine_root: wine_root.map(PathBuf::from),
-            wine_binary: wine_binary.unwrap_or_else(|| "wine".to_string()),
+            wine_root: wine_root.map(PathBuf::from)
         }
     }
 
@@ -65,10 +63,10 @@ impl Wine {
     }
 
     pub fn cmd(&self) -> Command {
-        let wine_binary = &self.wine_root
+        let wine_binary = self.wine_root
             .as_ref()
-            .map(|root| root.join("bin").join(&self.wine_binary))
-            .unwrap_or_else(|| PathBuf::from(&self.wine_binary));
+            .map(|root| root.join("bin").join("wine"))
+            .unwrap_or_else(|| PathBuf::from("wine"));
 
         let mut cmd = Command::new(wine_binary);
         cmd.env("WINEPREFIX", &self.prefix_path);
