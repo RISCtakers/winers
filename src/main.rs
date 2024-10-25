@@ -8,7 +8,7 @@ async fn main() {
     let home = env::var("HOME").expect("could not get the HOME variable");
 
     let prefix_path = format!("{}/.wine", home);
-    let prefix = Wine::new(&prefix_path);
+    let prefix = Wine::new(&prefix_path, None);
 
     match prefix.init() {
         Ok(_) => println!("Wine prefix initialized successfully at '{}'.", prefix_path),
