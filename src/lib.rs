@@ -3,4 +3,4 @@ mod utils;
 mod dxvk;
 
 pub use wine::Wine;
-pub use dxvk::install_dxvk;
+pub use dxvk::get_latest_dxvk;
