@@ -65,8 +65,8 @@ impl Wine {
     pub fn cmd(&self) -> Command {
         let wine_binary = self.wine_root
             .as_ref()
-            .map(|root| root.join("bin").join("wine"))
-            .unwrap_or_else(|| PathBuf::from("wine"));
+            .map(|root| root.join("bin").join("wine64"))
+            .unwrap_or_else(|| PathBuf::from("wine64"));
 
         let mut cmd = Command::new(wine_binary);
         cmd.env("WINEPREFIX", &self.prefix_path);
