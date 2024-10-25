@@ -1,7 +1,6 @@
 {
   lib,
   rustPlatform,
-  wineWow64Packages,
   pkg-config,
   openssl,
 }: let
@@ -24,7 +23,6 @@ in
 
     buildInputs = [
       openssl
-      wineWow64Packages.stagingFull
     ];
 
     nativeBuildInputs = [
