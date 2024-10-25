@@ -1,7 +1,8 @@
-use winers::Wine;
+use winers::{get_latest_dxvk, Wine};
 use std::env;
 
-fn main() {
+#[tokio::main]
+async fn main() {
     println!("winers debug - meow :3");
     
     let home = env::var("HOME").expect("could not get the HOME variable");
@@ -40,6 +41,8 @@ fn main() {
         .arg("regedit")
         .output()
         .expect("regedit startup epic failure");
+
+    get_latest_dxvk().await;
 
     match prefix.delete() {
         Ok(_) => println!("Wine prefix deleted successfully at '{}'.", prefix_path),
