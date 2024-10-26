@@ -3,7 +3,7 @@ use std::fs;
 use crate::{utils, Wine};
 use flate2::read::GzDecoder;
 use tar::Archive;
-use reqwest::{Client, Error};
+use reqwest::Client;
 
 const OWNER: &str = "doitsujin";
 const REPO: &str = "dxvk";
