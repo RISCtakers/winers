@@ -37,18 +37,15 @@ pub async fn install_dxvk(prefix: &Wine, version: &str) -> Result<(), Box<dyn st
 
         if let Some(path_str) = path.to_str() {
             if path_str.to_lowercase().ends_with(".dll") {
-                let target_dir = if path_str.contains("x64") {
-                    x64_dir
-                } else if path_str.contains("x32") {
-                    x32_dir
-                } else {
-                    continue;
+                let target_dir = match path_str {
+                    s if s.contains("x64") => x64_dir,
+                    s if s.contains("x32") => x32_dir,
+                    _ => continue,
                 };
 
                 let file_name = path.file_name().unwrap_or_default();
                 let target_path = target_dir.join(file_name);
                 entry.unpack(&target_path)?;
-                println!("Extracted: {}", target_path.display());
             }
         }
     }
